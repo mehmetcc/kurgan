@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
-import { Accelerometer } from 'expo-sensors';
 
 interface Acceleration {
   x: number;
@@ -11,9 +9,11 @@ interface Acceleration {
 const Accelerations: React.FC<Acceleration> = (acceleration: Acceleration) => {
   return (
     <SafeAreaView>
-      <Text
-        style={styles.textstyle}
-      >{acceleration ? `Coordinates: (${acceleration.x}, ${acceleration.y}, ${acceleration.z})` : "Press start to send some data!"}</Text>
+      <Text style={styles.textstyle}>
+        {acceleration
+          ? `Coordinates: (${acceleration.x}, ${acceleration.y}, ${acceleration.z})`
+          : "Press start to send some data!"}
+      </Text>
     </SafeAreaView>
   );
 };
