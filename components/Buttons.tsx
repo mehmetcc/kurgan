@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-const Buttons = () => {
-  const [active, setActive] = useState(false);
+type Props = {
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
+const Buttons: React.FC<Props> = ({ active, setActive }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
         style={styles.button}
         onPress={() => setActive(!active)}
       >
-        <Text>{active ? "Stop!" : "Start!"}</Text>
+        <Text>{active ? "Stop" : "Start"}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

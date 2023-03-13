@@ -8,8 +8,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Accelerations x={0} y={0} z={0} />
-      <Buttons />
+      <Accelerations active={active} />
+      <Buttons active={active} setActive={setActive} />
     </View>
   );
 }
