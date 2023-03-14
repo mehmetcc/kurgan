@@ -12,6 +12,14 @@
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Kurgan uses your location to collect accelerometer data."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },

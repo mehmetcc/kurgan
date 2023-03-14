@@ -1,3 +1,4 @@
+import { LocationObject } from "expo-location";
 import { Subscription } from "expo-modules-core";
 import { Accelerometer } from "expo-sensors";
 import { useEffect, useState } from "react";
@@ -5,9 +6,10 @@ import { SafeAreaView, StyleSheet, Text } from "react-native";
 
 type Props = {
   active: boolean;
+  location: LocationObject | null;
 };
 
-const Accelerations: React.FC<Props> = ({ active }: Props) => {
+const Accelerations: React.FC<Props> = ({ active, location }: Props) => {
   const [{ x, y, z }, setAcceleration] = useState({
     x: 0,
     y: 0,
@@ -22,29 +24,28 @@ const Accelerations: React.FC<Props> = ({ active }: Props) => {
   };
 
   const unsubscribe = () => {
-    subscription && subscription.remove();
+    subscription?.remove();
     setSubscription(null);
   };
-
 
   useEffect(() => {
     subscribe();
     return () => {
       unsubscribe();
-    }
+    };
   }, []);
 
   if (active) {
     // TODO change when integrating server endpoint
-    console.log(x, y, z);
+    console.log(
+      `Coordinates: ${x}, ${y}, ${z} Location: ${location?.coords.altitude} `
+    );
   }
 
   return (
     <SafeAreaView>
       <Text style={styles.textstyle}>
-        {
-          active ? "Listening!" : "Press start to send some data!"
-        }
+        {active ? "Listening!" : "Press start to send some data!"}
       </Text>
     </SafeAreaView>
   );
