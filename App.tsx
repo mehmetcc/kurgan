@@ -4,7 +4,6 @@ import Accelerations from "./components/Accelerations";
 import Buttons from "./components/Buttons";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
-import LocationErrorModal from "./screens/LocationErrorModal";
 
 export default function App() {
   const [active, setActive] = useState(false);
@@ -32,7 +31,6 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Accelerations active={active} location={location} />
       <Buttons active={active} setActive={setActive} />
-      <LocationErrorModal errorMessage={locationErrorMessage} />
     </SafeAreaView>
   );
 }
