@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, SafeAreaView } from "react-native";
 import Accelerations from "./components/Accelerations";
 import Buttons from "./components/Buttons";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
+import LocationErrorModal from "./screens/LocationErrorModal";
 
 export default function App() {
   const [active, setActive] = useState(false);
@@ -13,7 +14,7 @@ export default function App() {
   >(null);
 
   const getLocation = async () => {
-    let { status } = await Location.requestBackgroundPermissionsAsync();
+    let { status } = await Location.getBackgroundPermissionsAsync();
 
     if (status !== "granted") {
       setLocationErrorMessage("Permission to access location was denied");
@@ -28,10 +29,11 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Accelerations active={active} location={location} />
       <Buttons active={active} setActive={setActive} />
-    </View>
+      <LocationErrorModal errorMessage={locationErrorMessage} />
+    </SafeAreaView>
   );
 }
 

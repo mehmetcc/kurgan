@@ -16,7 +16,9 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Kurgan uses your location to collect accelerometer data."
+          "NSLocationAlwaysAndWhenInUseUsageDescription": "App requires geolocation to improve the quality of the service",
+          "NSLocationAlwaysUsageDescription": "App requires geolocation to improve the quality of the service",
+          "NSLocationWhenInUseUsageDescription": "App requires geolocation to improve the quality of the service"
         }
       ]
     ],
