@@ -50,7 +50,7 @@ const AccelerationChip: React.FC<Props> = ({
   return (
     <View style={[styles.container, style]}>
       <Image
-        source={require("../../../assets/images/chipImage.png")}
+        source={require("../../../assets/images/chipImage.jpg")}
         style={styles.leftImage}
       ></Image>
       <Text style={styles.chipText}>

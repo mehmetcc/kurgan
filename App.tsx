@@ -11,7 +11,8 @@ import createEmptyLocation from "./src/utils/LocationUtils";
 
 const App = () => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  const [location, setLocation] = useState<LocationObject>(createEmptyLocation);
+  const [loadingText, setLoadingText] = useState("Uygulama yükleniyor!");
+  const [location, setLocation] = useState<LocationObject>(createEmptyLocation());
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
 
   useEffect(() => {
@@ -44,17 +45,19 @@ const App = () => {
         animationStyle={styles.lottie}
         speed={1}
         source={require("./assets/animations/loading.json")}
-      />
+      >
+        <Text>{loadingText}</Text>
+      </AnimatedLoader>
     );
   }
 
-  return <Main />;
+  return <Main initialLocation={location} />;
 };
 
 const styles = StyleSheet.create({
   lottie: {
-    width: 100,
-    height: 100,
+    width: 256,
+    height: 256,
   },
 });
 
@@ -63,8 +66,7 @@ const loadResourcesAsync = async () => {
 };
 
 const handleFinishLoading = async (
-  setLoadingComplete: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+  setLoadingComplete: React.Dispatch<React.SetStateAction<boolean>>) => {
   setLoadingComplete(true);
 };
 

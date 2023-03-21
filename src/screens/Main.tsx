@@ -7,10 +7,14 @@ import LocalMap from "../components/LocalMap/LocalMap";
 import Center from "../utils/Center";
 import createEmptyLocation from "../utils/LocationUtils";
 
-const Main = () => {
+type Props = {
+  initialLocation: LocationObject
+}
+
+const Main: React.FC<Props> = ({ initialLocation }: Props) => {
   const [active, setActive] = useState(false);
   const [location, setLocation] = useState<LocationObject>(
-    createEmptyLocation()
+    initialLocation
   );
   const [locationErrorMessage, setLocationErrorMessage] = useState<
     // try to find a way to utilize this information
@@ -41,12 +45,12 @@ const Main = () => {
             onPress={() => setActive(!active)}
             style={styles.button}
           ></TouchableOpacity>
+          <AccelerationChip
+            style={styles.materialChipWithImage}
+            active={active}
+            location={location}
+          />
         </Center>
-        <AccelerationChip
-          style={styles.materialChipWithImage}
-          active={active}
-          location={location}
-        />
       </View>
     </View>
   );
