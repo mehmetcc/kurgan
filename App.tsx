@@ -12,7 +12,9 @@ import createEmptyLocation from "./src/utils/LocationUtils";
 const App = () => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [loadingText, setLoadingText] = useState("Uygulama yükleniyor!");
-  const [location, setLocation] = useState<LocationObject>(createEmptyLocation());
+  const [location, setLocation] = useState<LocationObject>(
+    createEmptyLocation()
+  );
   const [locationErrorMessage, setLocationErrorMessage] = useState<string>("");
 
   useEffect(() => {
@@ -66,7 +68,8 @@ const loadResourcesAsync = async () => {
 };
 
 const handleFinishLoading = async (
-  setLoadingComplete: React.Dispatch<React.SetStateAction<boolean>>) => {
+  setLoadingComplete: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   setLoadingComplete(true);
 };
 

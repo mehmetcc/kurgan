@@ -8,14 +8,12 @@ import Center from "../utils/Center";
 import createEmptyLocation from "../utils/LocationUtils";
 
 type Props = {
-  initialLocation: LocationObject
-}
+  initialLocation: LocationObject;
+};
 
 const Main: React.FC<Props> = ({ initialLocation }: Props) => {
   const [active, setActive] = useState(false);
-  const [location, setLocation] = useState<LocationObject>(
-    initialLocation
-  );
+  const [location, setLocation] = useState<LocationObject>(initialLocation);
   const [locationErrorMessage, setLocationErrorMessage] = useState<
     // try to find a way to utilize this information
     string | null
