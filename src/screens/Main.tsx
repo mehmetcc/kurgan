@@ -9,7 +9,9 @@ import createEmptyLocation from "../utils/LocationUtils";
 
 const Main = () => {
   const [active, setActive] = useState(false);
-  const [location, setLocation] = useState<LocationObject>(createEmptyLocation());
+  const [location, setLocation] = useState<LocationObject>(
+    createEmptyLocation()
+  );
   const [locationErrorMessage, setLocationErrorMessage] = useState<
     // try to find a way to utilize this information
     string | null
@@ -33,10 +35,7 @@ const Main = () => {
   return (
     <View style={styles.container}>
       <View style={styles.materialMapViewStack}>
-        <LocalMap
-          style={styles.materialMapView}
-          location={location}
-        />
+        <LocalMap style={styles.materialMapView} location={location} />
         <Center horizontal>
           <TouchableOpacity
             onPress={() => setActive(!active)}

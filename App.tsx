@@ -1,9 +1,10 @@
 import * as Font from "expo-font";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from "expo-splash-screen";
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import AnimatedLoader from "react-native-animated-loader";
+import { Text, View, StyleSheet } from "react-native";
 import Main from "./src/screens/Main";
 import Center from "./src/utils/Center";
 import createEmptyLocation from "./src/utils/LocationUtils";
@@ -36,13 +37,26 @@ const App = () => {
   }, [isLoadingComplete]);
 
   if (!isLoadingComplete) {
-    return <View><Center><Text>YÜKLENİYOOOOOOOO!</Text></Center></View>; // TODO add splash screen here
+    return (
+      <AnimatedLoader
+        visible={!isLoadingComplete}
+        overlayColor="rgba(255,255,255,0.75)"
+        animationStyle={styles.lottie}
+        speed={1}
+        source={require("./assets/animations/loading.json")}
+      />
+    );
   }
 
-  return (
-      <Main />
-  );
+  return <Main />;
 };
+
+const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100,
+  },
+});
 
 const loadResourcesAsync = async () => {
   await Promise.all([Font.loadAsync({})]);
@@ -54,8 +68,10 @@ const handleFinishLoading = async (
   setLoadingComplete(true);
 };
 
-const loadInitialLocation = async (setLocation: React.Dispatch<React.SetStateAction<LocationObject>>,
-  setLocationErrorMessage: React.Dispatch<React.SetStateAction<string>>) => {
+const loadInitialLocation = async (
+  setLocation: React.Dispatch<React.SetStateAction<LocationObject>>,
+  setLocationErrorMessage: React.Dispatch<React.SetStateAction<string>>
+) => {
   let { status } = await Location.getBackgroundPermissionsAsync();
 
   if (status !== "granted") {
