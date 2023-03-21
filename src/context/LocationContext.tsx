@@ -4,12 +4,13 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 const LocationContext = createContext<LocationContextType>({
     location: undefined,
-    refresh: null,
+    refresh: () => { },
     error: "",
     loading: false,
 });
 
-const LocationProvider: React.FC<React.ReactNode> = ({children}) => {
+
+const LocationProvider: React.FC<React.ReactNode> = ({ children }) => {
     const [location, setLocation] = useState<LocationObject>();
     const [error, setError] = useState("");
     const [permissions, setPermissions] = useState<Location.PermissionResponse>();
@@ -42,14 +43,16 @@ const LocationProvider: React.FC<React.ReactNode> = ({children}) => {
 
     useEffect(() => {
         refresh();
+        console.log(location);
     }, []);
 
-    const locationContextValue = { location, refresh, error, loading };
+    const value = { location, refresh, error, loading };
 
-    return <LocationContext.Provider value={locationContextValue} {...children} />;
+    console.log(location);
+    return <LocationContext.Provider value={value}>{children}</LocationContext.Provider>;
 };
 
-const useLocation = () => useContext(LocationContext);
+const useLocation = (): LocationContextType => useContext(LocationContext);
 
-export default { LocationProvider, useLocation };
+export default LocationProvider;
 

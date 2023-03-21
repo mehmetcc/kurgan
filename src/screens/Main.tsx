@@ -1,16 +1,15 @@
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import AccelerationChip from "../components/AccelerationChip/AccelerationChip";
 import LocalMap from "../components/LocalMap/LocalMap";
 import Center from "../utils/Center";
 import createEmptyLocation from "../utils/LocationUtils";
 
-const Main: React.FC = () => {
+const Main = () => {
   const [active, setActive] = useState(false);
   const [location, setLocation] = useState<LocationObject>(createEmptyLocation());
-
   const [locationErrorMessage, setLocationErrorMessage] = useState<
     // try to find a way to utilize this information
     string | null
