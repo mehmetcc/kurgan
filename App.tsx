@@ -1,44 +1,51 @@
-import { useState, useEffect } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
-import Accelerations from "./components/Accelerations";
-import Buttons from "./components/Buttons";
-import * as Location from "expo-location";
-import { LocationObject } from "expo-location";
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from "expo-font";
+import React, { useCallback, useEffect, useState } from "react";
+import Main from "./src/screens/Main";
+import LocationProvider from './src/context/LocationContext';
+import { LocationObject } from 'expo-location';
 
-export default function App() {
-  const [active, setActive] = useState(false);
-  const [location, setLocation] = useState<LocationObject | null>(null);
-  const [locationErrorMessage, setLocationErrorMessage] = useState<
-    string | null
-  >(null);
-
-  const getLocation = async () => {
-    let { status } = await Location.getBackgroundPermissionsAsync();
-
-    if (status !== "granted") {
-      setLocationErrorMessage("Permission to access location was denied");
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-  };
+const App = () => {
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
-    getLocation();
+    const load = async () => {
+      try {
+        await loadResourcesAsync();
+        await handleFinishLoading(setLoadingComplete);
+      } catch (error) {
+        console.warn(error);
+      } finally {
+        setLoadingComplete(true);
+      }
+    };
+
+    load();
   }, []);
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Accelerations active={active} location={location} />
-      <Buttons active={active} setActive={setActive} />
-    </SafeAreaView>
-  );
-}
+  const onLayoutRootView = useCallback(async () => {
+    if (isLoadingComplete) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isLoadingComplete]);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-  },
-});
+  if (!isLoadingComplete) {
+    return null;
+  }
+
+  return (
+    <Main />
+  );
+};
+
+const loadResourcesAsync = async () => {
+  await Promise.all([Font.loadAsync({})]);
+};
+
+const handleFinishLoading = async (
+  setLoadingComplete: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  setLoadingComplete(true);
+};
+
+export default App;
