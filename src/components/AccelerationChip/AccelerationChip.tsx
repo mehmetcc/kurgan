@@ -41,7 +41,20 @@ const AccelerationChip: React.FC<Props> = ({
   }, []);
 
   if (active) {
-    // TODO change when integrating server endpoint
+    fetch("some_ngrok_uri/acceleration", { // TODO configure
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        x: x,
+        y: y,
+        z: z,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      }),
+    });
     console.log(
       `Coordinates: ${x}, ${y}, ${z} Longitude: ${location.coords.longitude} Latitude: ${location.coords.latitude} `
     );
