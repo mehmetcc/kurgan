@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   animatedButton: {
-    top: 648
+    top: 648,
   },
   materialChipWithImage: {
     width: 301,
