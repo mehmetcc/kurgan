@@ -1,11 +1,11 @@
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { useEffect, useState, useLayoutEffect } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import AccelerationChip from "../components/AccelerationChip/AccelerationChip";
 import LocalMap from "../components/LocalMap/LocalMap";
+import AnimatedButton from "../utils/AnimatedButton";
 import Center from "../utils/Center";
-import createEmptyLocation from "../utils/LocationUtils";
 
 type Props = {
   initialLocation: LocationObject;
@@ -13,6 +13,7 @@ type Props = {
 
 const Main: React.FC<Props> = ({ initialLocation }: Props) => {
   const [active, setActive] = useState(false);
+  const [animated, setAnimated] = useState(false);
   const [location, setLocation] = useState<LocationObject>(initialLocation);
   const [locationErrorMessage, setLocationErrorMessage] = useState<
     // try to find a way to utilize this information
@@ -39,10 +40,17 @@ const Main: React.FC<Props> = ({ initialLocation }: Props) => {
       <View style={styles.materialMapViewStack}>
         <LocalMap style={styles.materialMapView} location={location} />
         <Center horizontal>
-          <TouchableOpacity
-            onPress={() => setActive(!active)}
-            style={styles.button}
-          ></TouchableOpacity>
+          <AnimatedButton
+            style={styles.animatedButton}
+            width={256}
+            height={256}
+            loop={true}
+            status={active}
+            onPress={() => {
+              setActive(!active);
+            }}
+            source={require("../../assets/animations/button.json")}
+          />
           <AccelerationChip
             style={styles.materialChipWithImage}
             active={active}
@@ -65,13 +73,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
-  button: {
-    top: 652,
-    width: 100,
-    height: 100,
-    position: "absolute",
-    backgroundColor: "rgba(233,30,99,1)",
-    borderRadius: 100,
+  animatedButton: {
+    top: 648
   },
   materialChipWithImage: {
     width: 301,

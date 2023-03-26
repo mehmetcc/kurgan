@@ -56,7 +56,7 @@ const AccelerationChip: React.FC<Props> = ({
       <Text style={styles.chipText}>
         {active
           ? "Veriler gönderiliyor!"
-          : "Gönderimi başlatmak için bir tuşa basın!"}
+          : "Gönderimi başlatmak için butona basın!"}
       </Text>
     </View>
   );
